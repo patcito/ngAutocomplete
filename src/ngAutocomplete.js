@@ -79,13 +79,15 @@ angular.module( "ngAutocomplete", [])
             }
           }
         }
-        
+
         // Watch enter and update autocomplete before sending
         element.bind("keydown keypress", function(event) {
           if(event.which === 13) {
             scope.$apply(function () {
               controller.$setViewValue(element.val());
             });
+            event.stopPropagation();
+            event.preventDefault();
           }
         });
 
@@ -112,7 +114,7 @@ angular.module( "ngAutocomplete", [])
           }
         })
 
-        //function to get retrieve the autocompletes first result using the AutocompleteService 
+        //function to get retrieve the autocompletes first result using the AutocompleteService
         var getPlace = function(result) {
           var autocompleteService = new google.maps.places.AutocompleteService();
           if (result.name.length > 0){
